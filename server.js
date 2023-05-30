@@ -7,16 +7,20 @@ const app = express();
 const upload = multer({ dest: 'uploads/' });
 const port = 3000;
 
-app.post('/api/files', upload.single('csv-file'), (req, res) => {
+app.post('/api/files', upload.single('csv-file'), async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).send(`${req.method} method Not Allowed`);
   }
 
-  csv().fromFile(req.file.path).then((jsonObj) => {
-    console.log(jsonObj);
-  });
+  let csvObj = null;
+  try {
+    csvObj = await csv().fromFile(req.file.path);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(`Error parsing CSV file: ${e}`);
+  }
 
-  res.send('Hello World!')
+  res.status(200).send(csvObj);
 });
 
 app.listen(port, () => {
