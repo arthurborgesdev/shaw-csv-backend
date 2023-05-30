@@ -19,18 +19,12 @@ Dev: `npm run dev` will trigger nodemon for local tests
 - Nodemon
 - Docker
 
-## Docker instructions
-### Node.js image
+## App Initialization
 
-- Build the image
-`docker build . -t <your username>/shaw-csv-backend`
+### Docker instructions
 
-- Run the image
-`docker run -p 3000:3000 -d <your username>/shaw-csv-backend`
-
-### MongoDB image
-
-
+Run docker compose command
+`docker-compose -f docker-compose.yml up`
 
 ### Other useful commands:
 `docker ps` -> Get container ID
