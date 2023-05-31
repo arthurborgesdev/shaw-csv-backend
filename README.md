@@ -27,7 +27,11 @@ Run docker compose command
 `docker-compose -f docker-compose.yml up`
 
 ### Other useful commands:
+
 `docker ps` -> Get container ID
+
 `docker logs <container id>` -> Print app output
+
 `docker exec -it <container id> /bin/bash` -> Get into the container
+
 `docker kill <container id>` -> Shutdown the image
