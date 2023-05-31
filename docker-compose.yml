@@ -8,7 +8,9 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_PASSWORD: pass
+    ports:
+      - "127.0.0.1:27017:27017"
   #node:
   #  build: .
   #  restart: always
