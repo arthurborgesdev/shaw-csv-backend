@@ -15,6 +15,7 @@ async function dbConnect() {
     return mongoose.connection;
   } catch (e) {
     console.log(e);
+    dbClose();
   }
 }
 
