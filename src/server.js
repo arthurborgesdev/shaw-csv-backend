@@ -6,11 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const app = express();
 const port = 3000;
 
-
-
-async function main() {
-  // console.log(process.env.MONGO_INITDB_ROOT_USERNAME);
-  // console.log(process.env.MONGO_INITDB_ROOT_PASSWORD);
+async function serverInit() {
   try {
     await mongoose.connect(`mongodb://localhost@127.0.0.1:27017/`, {
       auth: {
@@ -26,10 +22,10 @@ async function main() {
   }
 }
 
-main();
+serverInit();
 
 app.use(userRoutes);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening on port ${port}`)
 });
