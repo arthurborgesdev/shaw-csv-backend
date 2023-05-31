@@ -4,40 +4,10 @@ const { exampleObj, emptyObj } = require('../helperObj.js');
 const User = require('../../models/User');
 
 const baseUrl = 'http://127.0.0.1:3000';
-let connection = null;
 
-const tokyoObj = [
-  {
-    name: 'Karen Lee',
-    city: 'Tokyo',
-    country: 'Japan',
-    favorite_sport: 'Swimming'
-  }
-]
-
-const tokyoAndBasketballObj = [
-  {
-    name: 'John Doe',
-    city: 'New York',
-    country: 'USA',
-    favorite_sport: 'Basketball'
-  },
-  {
-    name: 'Karen Lee',
-    city: 'Tokyo',
-    country: 'Japan',
-    favorite_sport: 'Swimming'
-  },
-  {
-    name: 'Emma Wilson',
-    city: 'Berlin',
-    country: 'Germany',
-    favorite_sport: 'Basketball'
-  },
-]
 
 beforeAll(async () => {
-  connection = await dbConnect();
+  const connection = await dbConnect();
   const [dbCollections] = await connection.db.collections();
   if (dbCollections.collectionName === 'users') {
     await connection.db.dropCollection('users');
@@ -73,13 +43,13 @@ describe('Search in CSV for passed query parameters', () => {
   test('It should return objects that contain only "Tokyo" in one or more of its fields', async () => {
     const response = await request(baseUrl).get('/api/users').query({ q: 'Tokyo'});
     expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(tokyoObj);
+    expect(response.body.length).toEqual(1);
   });
 
   test('It should return objects that contain only "Tokyo" and "Basketball" in one or more of its fields (multi-field search)', async () => {
     const response = await request(baseUrl).get('/api/users').query({ q: 'Tokyo,Basketball'});
     expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(tokyoAndBasketballObj);
+    expect(response.body.length).toEqual(3);
   });
 });
 

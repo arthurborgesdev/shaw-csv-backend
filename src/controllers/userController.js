@@ -54,7 +54,7 @@ exports.searchUser = async (req, res) => {
       { country: { $in: searchTerms } },
       { favorite_sport: { $in: searchTerms } },
     ]
-  }, {__v: 0, _id: 0});
+  }, {__v: 0});
 
   res.send(users);
 }
