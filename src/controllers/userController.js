@@ -21,8 +21,10 @@ exports.createUser = async (req, res) => {
   }
 
   try {
-    await User.insertMany(csvObj);
-    res.status(200).send(csvObj);
+    // Clears the collection so the user is always dealing with the most recent CSV file
+    await User.deleteMany({});
+    const users = await User.insertMany(csvObj);
+    res.status(200).send(users);
   } catch (e) {
     res.status(500).send(`Error saving CSV file to database: ${e}`);
   }
@@ -54,7 +56,7 @@ exports.searchUser = async (req, res) => {
       { country: { $in: searchTerms } },
       { favorite_sport: { $in: searchTerms } },
     ]
-  }, {__v: 0, _id: 0});
+  }, {__v: 0});
 
   res.send(users);
 }

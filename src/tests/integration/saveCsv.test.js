@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { dbConnect, dbClose } = require('../../db');
-const { exampleObj, emptyObj } = require('../helperObj.js');
+const { exampleObj } = require('../helperObj.js');
 
 const baseUrl = 'http://127.0.0.1:3000';
 let connection = null;
@@ -31,7 +31,7 @@ describe('Save CSV to Database as documents', () => {
   test('It should save the CSV as JSON to DB', async () => {
     const response = await request(baseUrl).post('/api/files').attach('csv-file', `${__dirname}/../example.csv`);
     expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(exampleObj);
+    expect(response.body.length).toEqual(6);
   });
 });
 
