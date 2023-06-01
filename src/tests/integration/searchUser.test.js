@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { dbConnect, dbClose } = require('../../db');
-const { exampleObj, emptyObj } = require('../helperObj.js');
+const { exampleObj} = require('../helperObj.js');
 const User = require('../../models/User');
 
 const baseUrl = 'http://127.0.0.1:3000';
@@ -12,7 +12,7 @@ beforeAll(async () => {
   if (dbCollections.collectionName === 'users') {
     await connection.db.dropCollection('users');
   }
-  User.insertMany(exampleObj);
+  await User.insertMany(exampleObj);
 });
 
 afterAll(async () => {
